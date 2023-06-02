@@ -5,6 +5,7 @@ import com.assignment.util.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class PostController {
     String INSERT_POST = "INSERT INTO posts VALUES(?,?,?,?)";
@@ -36,6 +37,32 @@ public class PostController {
             }
 
             return false;
+        }
+    }
+    public void checkID(Post post){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            connection = DBUtil.getMySQLConnection();
+            preparedStatement = connection.prepareStatement("select userId from posts where userId like  ?");
+            preparedStatement.setString(1, String.valueOf(post));
+            rs = preparedStatement.executeQuery();
+            if(rs.isBeforeFirst()){
+                throw new Exception("id..");
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            try {
+                connection.close();
+                preparedStatement.close();
+                rs.close();
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 }

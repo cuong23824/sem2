@@ -38,6 +38,11 @@ public class JSONManagement {
                 org.json.JSONObject post
                         = (org.json.JSONObject) jsonArray.get(i);
 
+                Post check = new Post(
+                    Integer.parseInt(post.get("id").toString())
+                );
+                postController.checkID(check);
+
 
                 Post newPost = new Post(
                         Integer.parseInt(post.get("id").toString()),

@@ -45,4 +45,7 @@ public class Post {
         this.title = title;
         this.body = body;
     }
+    public Post(int id){
+        this.id = id;
+    }
 }
